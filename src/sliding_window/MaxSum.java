@@ -19,7 +19,7 @@ public class MaxSum {
      * @param k desired size of sub array
      * @return maximum sum of 'k' sized sub array
      */
-    public int findMaxSumK(int[] numArray, int k) {
+    public int bruteFindMaxSumK(int[] numArray, int k) {
         int maxSum = 0;
 
         // Loop array.length - k to prevent nested loop from going out of bounds
@@ -36,5 +36,27 @@ public class MaxSum {
         return maxSum;
     }
 
+    /**
+     * Sliding window optimal solution
+     *
+     * @param numArray array containing integers for analysis
+     * @param k desired size of sub array
+     * @return maximum sum of 'k' sized sub array
+     */
+    public int optimalFindMaxSumK(int[] numArray, int k) {
+        int windowStart = 0; // Pointer for the start of the sliding window
+        int windowSum = 0;
+        int maxSum = 0;
 
+        for(int windowEnd = 0; windowEnd < numArray.length; windowEnd ++) {
+            windowSum += numArray[windowEnd];
+            if(windowEnd >= k) {
+                maxSum = Math.max(windowSum, maxSum);
+                windowSum = 0;
+            }
+            windowStart++; // Slide the window across by one
+
+        }
+        return maxSum;
+    }
 }
